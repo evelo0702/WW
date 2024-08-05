@@ -2,7 +2,14 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        dongle: ["Dongle", "sans-serif"],
+      },
+      height: {
+        "95vh": "95vh",
+      },
+    },
   },
   plugins: [],
 };
