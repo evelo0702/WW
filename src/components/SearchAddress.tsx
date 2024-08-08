@@ -19,15 +19,16 @@ const SearchAddress: React.FC<Props> = ({ setLocation }) => {
     }
   };
   return (
-    <div className="w-full ">
+    <div className="w-full flex justify-center">
       <input
         type="text"
-        placeholder="원하는 주소를 입력해주세요"
+        placeholder="주소입력"
         value={temp}
         onChange={(e) => {
           setTemp(e.target.value);
         }}
         onKeyDown={handleKeyPress}
+        className="w-1/3"
       />
       <button
         onClick={() => {
