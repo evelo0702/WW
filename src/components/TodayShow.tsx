@@ -11,7 +11,7 @@ const TodayShow: React.FC<Props> = ({ item }) => {
         <p>{Time}시</p>
         <img
           src={`/${item.ICON}.png`}
-          className="rounded-xl h-2/3 md:h-1/2 p-1 opacity-60"
+          className="rounded-xl h-2/3 md:h-1/2 p-1"
           alt=""
         />
         <div className="flex">
