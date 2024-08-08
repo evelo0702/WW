@@ -99,6 +99,7 @@ export async function getWeatherData(
       let temp2 = [];
       for (let i = 0; i < totalForecast.POP.length; i++) {
         let temp = {
+          ID: i,
           ICON: "",
           TMX: totalForecast.TMX,
           TMN: totalForecast.TMN,
