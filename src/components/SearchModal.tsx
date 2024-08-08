@@ -60,7 +60,7 @@ const SearchModal: React.FC<ModalProps> = ({
   if (!isOpen) return null; // 모달이 열리지 않은 경우 아무것도 렌더링하지 않음
   return (
     <div style={overlayStyle}>
-      <div style={modalStyle}>
+      <div style={modalStyle} className="md:w-1/2">
         <DaumPostcodeEmbed
           onClose={onClose}
           defaultQuery={searchAddress}
