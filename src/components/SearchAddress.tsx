@@ -13,15 +13,21 @@ const SearchAddress: React.FC<Props> = ({ setLocation }) => {
     setIsModalOpen(false);
     setTemp("");
   };
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      openModal();
+    }
+  };
   return (
-    <div>
+    <div className="w-full ">
       <input
         type="text"
-        placeholder="원하시는 주소를 입력해주세요"
+        placeholder="원하는 주소를 입력해주세요"
         value={temp}
         onChange={(e) => {
           setTemp(e.target.value);
         }}
+        onKeyDown={handleKeyPress}
       />
       <button
         onClick={() => {
