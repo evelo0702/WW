@@ -21,7 +21,7 @@ export const getIcon = (TodayWeather: todayWeather[]) => {
             break;
         }
       } else if (parseInt(TodayWeather[i].SKY) <= 5) {
-        if (parseInt(TodayWeather[i].TIME) <= 2000) {
+        if (parseInt(TodayWeather[i].TIME) < 2000) {
           TodayWeather[i].ICON = "Sunny";
         } else {
           TodayWeather[i].ICON = "Clear";
