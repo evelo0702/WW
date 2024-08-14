@@ -19,7 +19,7 @@ export const changeWeekendWeather = (data: weekendWeatherData) => {
       item.split(String(i + 1)).forEach((it) => {
         temp2 += it;
       });
-      result[i]["day"] = `${i + 1}일후 날씨`;
+      result[i]["day"] = `${i + 1}일후`;
       result[i][temp2] = data[item];
     });
   }
