@@ -1,7 +1,25 @@
+.loader {
+  border-top-color: transparent; /* 상단 테두리 색상 투명하게 설정 */
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .loader {
+    animation: spin 1s linear infinite; /* 스피너 애니메이션 정의 */
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
 body {
   @apply font-dongle;
 }
