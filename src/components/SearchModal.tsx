@@ -47,12 +47,11 @@ const SearchModal: React.FC<ModalProps> = ({
       res.data.documents[0].road_address.region_2depth_name +
       " " +
       res.data.documents[0].road_address.region_3depth_name;
-    console.log(temp);
+
     setLocation(temp);
   };
   useEffect(() => {
     if (roadAdd) {
-      console.log(roadAdd);
       getData(roadAdd);
     }
   }, [roadAdd]);
