@@ -230,14 +230,19 @@ export async function getWeekendWeatherData(wkRegion: string) {
 
     let date = formattedDate();
     let time = new Date().getHours();
-    if (time > 6 && time < 18) {
+
+    if (time >= 6 && time < 18) {
       date = date + "0600";
-    } else {
+    } else if (time >= 18) {
       date = date + "1800";
+    } else {
+      date = String(Number(date) - 1) + "1800";
     }
+
     const res = await axios.get(
       `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=10&dataType=JSON&regId=${wkRegion}&tmFc=${date}`
     );
+
     if (res.data.response.body) {
       return res.data.response.body.items.item[0];
     }
@@ -250,10 +255,12 @@ export async function getWeekendTempData(wkRegion: string | null) {
   try {
     let date = formattedDate();
     let time = new Date().getHours();
-    if (time > 6 && time < 18) {
+    if (time >= 6 && time < 18) {
       date = date + "0600";
-    } else {
+    } else if (time >= 18) {
       date = date + "1800";
+    } else {
+      date = String(Number(date) - 1) + "1800";
     }
     const res = await axios.get(
       `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=10&dataType=JSON&regId=${wkRegion}&tmFc=${date}`
