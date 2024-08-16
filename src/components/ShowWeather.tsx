@@ -21,12 +21,18 @@ const ShowWeather: React.FC<Props> = ({
   let [curWx, setCurWx] = useState<todayWeather[]>();
   const getCurWxData = (TodayWeather: todayWeather[]) => {
     let time = new Date().getHours();
+
     let data = TodayWeather.filter((i) => {
-      return (
-        parseInt(i.TIME.slice(0, -2)) === time ||
-        parseInt(i.TIME.slice(0, -2)) === time - 1
-      );
+      if (time > 4) {
+        return (
+          parseInt(i.TIME.slice(0, -2)) === time ||
+          parseInt(i.TIME.slice(0, -2)) === time - 1
+        );
+      } else {
+        return i.TIME === "0400";
+      }
     });
+
     setCurWx(data);
   };
   if (TodayWeather.length > 1) {
