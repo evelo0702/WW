@@ -2,7 +2,7 @@ import axios from "axios";
 import { todayWeather, twodayWeather } from "../model/types";
 import { formattedDate } from "./formattedDate";
 
-const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
+const SECRET_KEY = import.meta.env.SECRET_KEY;
 interface ApiData {
   baseDate: string;
   baseTime: string;

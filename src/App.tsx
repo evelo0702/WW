@@ -19,7 +19,7 @@ import { getRegionCode } from "./data/regionCode";
 import { changeWeekendWeather } from "./utils/changeWeatherData";
 import Loader from "./components/Loader";
 
-const appKey = import.meta.env.VITE_KAKAO_KEY;
+const appKey = import.meta.env.KAKAO_KEY;
 function App() {
   // kakao api script 연결
   useEffect(() => {

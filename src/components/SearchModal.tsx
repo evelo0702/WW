@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
 import { dfs_xy_conv } from "../utils/changeXYcode";
 import { Coordinate } from "../utils/changeXYcode";
-const KAKAO_RESTAPI_KEY = import.meta.env.VITE_KAKAO_RESTAPI_KEY;
+const KAKAO_RESTAPI_KEY = import.meta.env.KAKAO_RESTAPI_KEY;
 
 export interface totalAddress extends Coordinate {
   addressName?: string;
