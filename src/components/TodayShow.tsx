@@ -14,7 +14,7 @@ const TodayShow: React.FC<Props> = ({ item }) => {
           className="rounded-xl h-2/3 md:h-1/2 p-1"
           alt=""
         />
-        <div className="flex">
+        <div className="flex my-2">
           {parseInt(item.TMP) >= 28 ? (
             <p className="text-red-700">{item.TMP}℃</p>
           ) : parseInt(item.TMP) < 28 && parseInt(item.TMP) > 18 ? (
@@ -23,8 +23,8 @@ const TodayShow: React.FC<Props> = ({ item }) => {
             <p className="text-blue-700">{item.TMP}℃</p>
           )}
         </div>
-        <div>{item.POP}%</div>
-        <div className="flex">{item.REH}</div>
+        <div className="my-2">{item.POP}%</div>
+        <div className="flex my-2">{item.REH}</div>
       </div>
     </div>
   );
