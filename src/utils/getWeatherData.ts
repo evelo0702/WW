@@ -227,6 +227,7 @@ export async function getTodayWeatherData(
 export async function getWeekendWeatherData(wkRegion: string) {
   try {
     // 중기날씨
+
     let date = formattedDate();
     let time = new Date().getHours();
     if (time > 6 && time < 18) {
@@ -237,7 +238,7 @@ export async function getWeekendWeatherData(wkRegion: string) {
     const res = await axios.get(
       `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=10&dataType=JSON&regId=${wkRegion}&tmFc=${date}`
     );
-    if (res) {
+    if (res.data.response.body) {
       return res.data.response.body.items.item[0];
     }
   } catch (err) {
@@ -258,7 +259,7 @@ export async function getWeekendTempData(wkRegion: string | null) {
       `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=10&dataType=JSON&regId=${wkRegion}&tmFc=${date}`
     );
 
-    if (res) {
+    if (res.data.response.body) {
       let data = res.data.response.body.items.item[0];
       let temp = {
         taMax3: data.taMax3,
