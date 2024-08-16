@@ -3,7 +3,7 @@ interface Props {
   summary: string;
   setComment: React.Dispatch<React.SetStateAction<string>>;
 }
-const apiKey = import.meta.env.OPENAI_KEY;
+const apiKey = import.meta.env.VITE_OPENAI_KEY;
 const GptChat: React.FC<Props> = ({ summary, setComment }) => {
   const [error, setError] = useState("");
 
