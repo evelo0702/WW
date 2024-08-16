@@ -32,7 +32,7 @@ export function dfs_xy_conv(code: string, v1: number, v2: number): Coordinate {
   sf = (Math.pow(sf, sn) * Math.cos(slat1)) / sn;
   let ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
   ro = (re * sf) / Math.pow(ro, sn);
-  const rs: Coordinate = {};
+  const rs = {} as Coordinate;
   const theta = Number(v2) * DEGRAD - olon;
 
   if (code === "toXY") {
