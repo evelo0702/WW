@@ -1,39 +1,56 @@
-import { todayWeather } from "../model/types";
+import { useEffect, useState } from "react";
+import { todayWeather, weekendWeatherData } from "../model/types";
 import { getIcon } from "../utils/getIcon";
 import SearchAddress from "./SearchAddress";
 import { totalAddress } from "./SearchModal";
 import TodayShow from "./TodayShow";
+import WeekendShow from "./WeekendShow";
 interface Props {
   regionName: string;
   setLocation: React.Dispatch<React.SetStateAction<totalAddress>>;
   TodayWeather: todayWeather[];
+  WeekendWeather: weekendWeatherData[];
+  regionCode: string | null;
 }
 const ShowWeather: React.FC<Props> = ({
   regionName,
   setLocation,
   TodayWeather,
+  WeekendWeather,
 }) => {
+  let [curWx, setCurWx] = useState<todayWeather[]>();
+  const getCurWxData = (TodayWeather: todayWeather[]) => {
+    let time = new Date().getHours();
+    let data = TodayWeather.filter((i) => {
+      return (
+        parseInt(i.TIME.slice(0, -2)) === time ||
+        parseInt(i.TIME.slice(0, -2)) === time - 1
+      );
+    });
+    setCurWx(data);
+  };
   if (TodayWeather.length > 1) {
-    console.log(TodayWeather);
     getIcon(TodayWeather);
   }
+  useEffect(() => {
+    getCurWxData(TodayWeather);
+  }, [TodayWeather]);
+  // 지역명을 slice해서 해당값으로 getRegionCode를 호출해서 지역코드를 얻어오는 메소드가 필요함
 
   return (
-    <div className="p-5 md:h-95vh h-3/5 md:w-2/3 w-full flex flex-col">
-      <div className="flex w-full md:h-1/5 h-1/3  m-2 max-[460px]:h-1/5">
+    <div className="md:h-95vh w-full flex flex-col">
+      <div className="flex w-full md:h-1/5 m-2 h-48">
         <div className="w-1/2">
-          <div className="h-1/2 flex ">
-            <div className="w-full">
-              <img
-                src="/Logo.png"
-                alt=""
-                className="h-full w-full object-cover"
-              />
-            </div>
+          <div className="h-2/3 flex ">
+            <img
+              src="/Logo.png"
+              alt=""
+              className="h-full w-full object-cover"
+            />
           </div>
 
-          <div className="h-1/2 font-dongle text-center md:justify-center flex max-[460px]:text-sm ">
-            <div className="w-full flex flex-col ">
+          <div className="h-1/3 font-dongle text-center md:justify-center flex max-[460px]:text-sm ">
+            <div className="w-full flex flex-col">
               <div className="">
                 <SearchAddress setLocation={setLocation} />
               </div>
@@ -42,19 +59,20 @@ const ShowWeather: React.FC<Props> = ({
           </div>
         </div>
 
-        <div className="flex flex-col md:w-1/2 w-1/3 h-full items-center justify-center overflow-hidden">
-          {TodayWeather.length > 1 && (
+        <div className="pt-4 flex flex-col md:w-1/2 w-1/3 h-full items-center justify-center overflow-hidden">
+          {TodayWeather.length > 1 && curWx && (
             <div className="md:w-1/2 w-3/4 overflow-hidden rounded-xl">
               <img
-                src={`/${TodayWeather[0].ICON}.png`}
-                className="object-cover w-full h-full"
+                src={`/${curWx[0].ICON}.png`}
+                className="w-full h-full"
                 alt=""
               />
             </div>
           )}
-          <div className="flex justify-around max-[460px]:text-sm">
+          <div className="flex flex-col justify-around max-[460px]:text-sm">
+            {curWx && <p className="text-center">{curWx[0].TMP}℃</p>}
             {TodayWeather.length > 1 ? (
-              <p>
+              <p className="text-gray-500">
                 {TodayWeather[0].TMN}℃ / {TodayWeather[0].TMX}℃
               </p>
             ) : (
@@ -63,35 +81,45 @@ const ShowWeather: React.FC<Props> = ({
           </div>
         </div>
       </div>
-      <div className="border-4  rounded-md md:h-1/4 h-1/2 flex m-2 items-center max-[460px]:text-sm">
-        {/* <div className="flex w-2/3 lg:text-lg lg:visible invisible flex-col">
-          <div className="flex flex-col items-center  bg-blue-400">
-            <p className="mb-2">기온</p>
-            <p>강수확률</p>
-            <p className="mb-2">습도</p>
-          </div>
-        </div> */}
+      <div className="border-4  rounded-md md:h-1/3 h-1/3 flex m-2 items-center max-[460px]:text-sm">
         <div className="flex w-5/6 text-lg max-[570px]:invisible">
           <div className="flex flex-col items-center">
-            <p className="invisible">{}시</p>
+            <p className="invisible">시</p>
             <img
-              src={`/Sunny.png`}
-              className="rounded-xl h-2/3 md:h-1/2 p-1 invisible"
+              src={`/Rainy.png`}
+              className="invisible rounded-xl h-2/3 md:h-1/2 p-1"
               alt=""
             />
-            <div className="flex">
-              <p className="">기온</p>
+            <div className="flex my-2">
+              <p>기온</p>
             </div>
-            <div>강수 확률</div>
-            <div className="flex">습도</div>
+            <div className="my-2">강수확률</div>
+            <div className="flex my-2">습도</div>
           </div>
         </div>
         {TodayWeather.map((item) => (
           <TodayShow item={item} key={item.ID} />
         ))}
       </div>
-      <div className="bg-indigo-400 flex-grow  md:h-1/3 h-1/2 flex m-2">
-        주간 날씨
+
+      <div
+        className="
+        grid grid-cols-1 md:h-1/2 h-1/3 p-3
+        sm:grid-cols-2  max-[640px]:grid-cols-7 
+      "
+      >
+        {WeekendWeather.map((item, index) => (
+          <div
+            key={item.day}
+            className={` ${
+              index === WeekendWeather.length - 1
+                ? "sm:col-span-2"
+                : "col-span-1"
+            } `}
+          >
+            <WeekendShow WeekendWeather={item} key={item.day} />
+          </div>
+        ))}
       </div>
     </div>
   );
