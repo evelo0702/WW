@@ -87,29 +87,35 @@ const ShowWeather: React.FC<Props> = ({
           </div>
         </div>
       </div>
-      <div className="border-4  rounded-md md:h-1/3 h-1/3 flex m-2 items-center max-[460px]:text-sm">
-        <div>
-          <div className="flex w-5/6 text-lg max-[570px]:invisible">
-            <div className="flex flex-col items-center">
-              <p className="invisible">시</p>
-              <img
-                src={`/Rainy.png`}
-                className="invisible rounded-xl h-2/3 md:h-1/2 p-1"
-                alt=""
-              />
-              <div className="flex my-2">
-                <p>기온</p>
+      <div className="border-4  rounded-md flex m-2 items-center max-[480px]:text-sm max-[480px]:h-48">
+        <div
+          className="
+        grid h-full p-3
+         grid-cols-11"
+        >
+          <div>
+            <div className="flex w-5/6 text-lg max-[590px]:invisible mt-2">
+              <div className="flex flex-col items-center">
+                <p className="invisible">시</p>
+                <img
+                  src={`/Rainy.png`}
+                  className="invisible rounded-xl h-2/3 md:h-1/2 p-1"
+                  alt=""
+                />
+                <div className="flex my-2">
+                  <p>기온</p>
+                </div>
+                <div className="my-2">강수확률</div>
+                <div className="flex my-2">습도</div>
               </div>
-              <div className="my-2">강수확률</div>
-              <div className="flex my-2">습도</div>
             </div>
           </div>
+          {TodayWeather.map((item) => (
+            <div>
+              <TodayShow item={item} key={item.ID} />
+            </div>
+          ))}
         </div>
-        {TodayWeather.map((item) => (
-          <div>
-            <TodayShow item={item} key={item.ID} />
-          </div>
-        ))}
       </div>
 
       <div
