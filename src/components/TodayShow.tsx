@@ -1,17 +1,18 @@
 import { todayWeather } from "../model/types";
 interface Props {
   item: todayWeather;
+  index: number;
 }
-const TodayShow: React.FC<Props> = ({ item }) => {
+const TodayShow: React.FC<Props> = ({ item, index }) => {
   let Time = item.TIME.slice(0, -2);
 
   return (
-    <div className="flex w-5/6">
+    <div className="flex border rounded-lg shadow-md">
       <div className="flex flex-col items-center">
         <p>{Time}시</p>
         <img
           src={`/${item.ICON}.png`}
-          className="rounded-xl max-[480px]:h-20 md:h-1/2 p-1"
+          className="rounded-xl  md:h-1/2 p-1"
           alt=""
         />
         <div className="flex my-2">
