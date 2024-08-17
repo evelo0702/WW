@@ -147,7 +147,7 @@ function App() {
         <div className="">
           <div
             className="flex md:flex-row flex-col px-10 md:h-95vh text-2xl max-w-screen-xl mx-auto
-      max-[380px]:text-lg  "
+      max-[380px]:text-lg"
           >
             <div className="h-5/6">
               {location.regionName && (
@@ -161,7 +161,7 @@ function App() {
               )}
             </div>
 
-            <div className="md:h-full w-full ms-4 ">
+            <div className="md:h-full max-w-screen-xl ">
               <RecWear summary={summary} />
             </div>
           </div>
