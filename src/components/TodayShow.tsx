@@ -1,9 +1,8 @@
 import { todayWeather } from "../model/types";
 interface Props {
   item: todayWeather;
-  index: number;
 }
-const TodayShow: React.FC<Props> = ({ item, index }) => {
+const TodayShow: React.FC<Props> = ({ item }) => {
   let Time = item.TIME.slice(0, -2);
 
   return (

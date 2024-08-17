@@ -103,9 +103,9 @@ const ShowWeather: React.FC<Props> = ({
 
       <div className="border-4 rounded-md flex m-2 items-center max-[480px]:text-sm max-[480px]:h-48">
         <div className="grid h-full p-3 grid-cols-10 gap-2">
-          {TodayWeather.map((item, index) => (
+          {TodayWeather.map((item) => (
             <div key={item.ID}>
-              <TodayShow item={item} index={index} />
+              <TodayShow item={item} />
             </div>
           ))}
         </div>
