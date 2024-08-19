@@ -1,30 +1,20 @@
-# React + TypeScript + Vite
+### 프로젝트 개요:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Weather-Wear**는 사용자의 현재 위치와 날씨 정보를 바탕으로, 해당 날씨에 맞는 의상을 추천해주는 웹 애플리케이션입니다. 이 프로젝트는 React와 TypeScript를 사용하여 개발되었으며, Tailwind CSS로 스타일링했습니다. 카카오 위치 서비스와 다음 주소찾기 API를 통해 사용자의 위치 정보를 얻고, GPT API를 활용하여 날씨에 맞는 의상을 추천합니다.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 배포 페이지:
 
-## Expanding the ESLint configuration
+[Weather-Wear(WW)](https://weather-wear-ten.vercel.app/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### 사용 기술 스택:
 
-- Configure the top-level `parserOptions` property like this:
+- **프론트엔드:** React, TypeScript, Tailwind CSS
+- **API:** 카카오 위치 서비스, 다음 주소찾기, ChatGPT API
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### 주요 기능:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. **현재 위치 기반 날씨 정보 제공:**
+    - 사용자의 현재 위치를 바탕으로 현재 날씨, 오늘의 날씨, 주간 날씨 정보를 제공합니다.
+2. **의상 추천:**
+    - GPT API를 사용하여 오늘의 날씨 데이터를 바탕으로 사용자가 입기에 적합한 의상을 추천합니다.
