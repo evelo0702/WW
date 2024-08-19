@@ -2,6 +2,8 @@ import axios from "axios";
 const KAKAO_RESTAPI_KEY = import.meta.env.VITE_KAKAO_RESTAPI_KEY;
 import { totalAddress } from "../components/SearchModal";
 export const xyToAddress = async (address: totalAddress) => {
+  console.log("xyToAddress");
+
   const url = `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${address.lng}&y=${address.lat}`;
 
   const res = await axios.get(url, {

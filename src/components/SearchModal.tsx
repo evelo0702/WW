@@ -26,7 +26,8 @@ const SearchModal: React.FC<ModalProps> = ({
   let [roadAdd, setRoadAdd] = useState("");
 
   // 주소검색 api에서 받은 데이터로 위도 경도를 받아오는 메소드
-  const getData = async (data: string) => {
+  const getModalData = async (data: string) => {
+    console.log("getModalData");
     const url = "https://dapi.kakao.com/v2/local/search/address.json";
     const query = `${data}`;
     const res = await axios.get(url, {
@@ -52,7 +53,7 @@ const SearchModal: React.FC<ModalProps> = ({
   };
   useEffect(() => {
     if (roadAdd) {
-      getData(roadAdd);
+      getModalData(roadAdd);
     }
   }, [roadAdd]);
 

@@ -1,6 +1,7 @@
 import { weekendWeatherData } from "../model/types";
 
 export const changeWeekendWeather = (data: weekendWeatherData) => {
+  console.log("changeWeekendWeather");
   let result = Array.from({ length: 7 }, () => ({} as weekendWeatherData));
 
   for (let i = 0; i < result.length; i++) {

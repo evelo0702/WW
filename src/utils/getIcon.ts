@@ -1,6 +1,8 @@
 import { todayWeather, weekendWeatherData } from "../model/types";
 
 export const getIcon = (TodayWeather: todayWeather[]) => {
+  console.log("getTodayIcon");
+  console.log(TodayWeather);
   // 1순위 - 강수형태 2순위 - 하늘 상태
   // 강수확률 0이고 하늘상태 맑음이면 20:00시 이전은 Sunny 이후면 Claer
   if (TodayWeather.length > 1) {
@@ -41,6 +43,8 @@ export const getIcon = (TodayWeather: todayWeather[]) => {
 export const getWeekendWeatherIcon = (
   weekendWeatherData: weekendWeatherData
 ) => {
+  console.log("getWeekendIcon");
+
   let temp = { amIcon: "", pmIcon: "" };
 
   switch (weekendWeatherData.wfAm) {

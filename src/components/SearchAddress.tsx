@@ -18,6 +18,8 @@ const SearchAddress: React.FC<Props> = ({ setLocation }) => {
       openModal();
     }
   };
+  console.log("SearchAddress 렌더링");
+
   return (
     <div className="w-full flex justify-center">
       <input

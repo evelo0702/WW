@@ -45,6 +45,7 @@ export async function getTodayWeatherData(
   setTodayWeather: React.Dispatch<React.SetStateAction<todayWeather[]>>,
   settwodayWeather: React.Dispatch<React.SetStateAction<twodayWeather>>
 ) {
+  console.log("getTodayWeatherData");
   try {
     const res = await axios.get(
       // 초단기예보
@@ -132,6 +133,7 @@ export async function getTodayWeatherData(
         temp2.push(temp);
       }
       setTodayWeather(temp2);
+      console.log(temp2);
 
       // 내일 모레 날씨
       let temp3 = res.data.response.body.items.item.slice(260);
@@ -225,6 +227,8 @@ export async function getTodayWeatherData(
 // 중기날씨api는 오늘기준으로 3일후부터 제공하기때문에
 // 1,2일후 날씨는 단기예보api를 사용해서 따로 받아와야함
 export async function getWeekendWeatherData(wkRegion: string) {
+  console.log("getWeekendWeatherData");
+
   try {
     // 중기날씨
 
@@ -244,6 +248,7 @@ export async function getWeekendWeatherData(wkRegion: string) {
     );
 
     if (res.data.response.body) {
+      console.log(res.data.response.body.items.item[0]);
       return res.data.response.body.items.item[0];
     }
   } catch (err) {
@@ -252,6 +257,7 @@ export async function getWeekendWeatherData(wkRegion: string) {
 }
 // 중기기온을 받아오는 메소드
 export async function getWeekendTempData(wkRegion: string | null) {
+  console.log("getWeekendTempData");
   try {
     let date = formattedDate();
     let time = new Date().getHours();
@@ -268,6 +274,7 @@ export async function getWeekendTempData(wkRegion: string | null) {
 
     if (res.data.response.body) {
       let data = res.data.response.body.items.item[0];
+      console.log(data);
       let temp = {
         taMax3: data.taMax3,
         taMax4: data.taMax4,

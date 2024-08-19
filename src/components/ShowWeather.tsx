@@ -20,6 +20,7 @@ const ShowWeather: React.FC<Props> = ({
 }) => {
   let [curWx, setCurWx] = useState<todayWeather[]>();
   const getCurWxData = (TodayWeather: todayWeather[]) => {
+    console.log("getCurWxData");
     let time = new Date().getHours();
 
     let data = TodayWeather.filter((i) => {
@@ -35,14 +36,12 @@ const ShowWeather: React.FC<Props> = ({
 
     setCurWx(data);
   };
-  if (TodayWeather.length > 1) {
-    getIcon(TodayWeather);
-  }
+
   useEffect(() => {
     getCurWxData(TodayWeather);
+    getIcon(TodayWeather);
   }, [TodayWeather]);
   // 지역명을 slice해서 해당값으로 getRegionCode를 호출해서 지역코드를 얻어오는 메소드가 필요함
-
   return (
     <div className="md:h-95vh w-full flex flex-col">
       <div className="flex w-full md:h-1/5 m-2 h-48">
@@ -87,19 +86,6 @@ const ShowWeather: React.FC<Props> = ({
           </div>
         </div>
       </div>
-      {/* <div className="border-4  rounded-md flex m-2 items-center max-[480px]:text-sm max-[480px]:h-48">
-        <div
-          className="
-        grid h-full p-3
-         grid-cols-10"
-        >
-          {TodayWeather.map((item, index) => (
-            <div>
-              <TodayShow item={item} key={item.ID} index={index} />
-            </div>
-          ))}
-        </div>
-      </div> */}
 
       <div className="border-4 rounded-md flex m-2 items-center max-[480px]:text-sm max-[480px]:h-48">
         <div className="grid h-full p-3 grid-cols-10 gap-2">

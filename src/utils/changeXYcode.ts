@@ -15,6 +15,7 @@ export interface Coordinate {
 }
 
 export function dfs_xy_conv(code: string, v1: number, v2: number): Coordinate {
+  console.log("changeXYcode")
   const DEGRAD = Math.PI / 180.0;
   const RADDEG = 180.0 / Math.PI;
 
