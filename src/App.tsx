@@ -46,6 +46,7 @@ function App() {
     y: 0,
   });
   const [summary, setSummary] = useState("");
+  const [gender, setGender] = useState("");
   useEffect(() => {
     // 날씨를 받아오기위해 날짜를 포맷에 맞게 세팅
     setCurrentDate(formattedDate());
@@ -107,7 +108,7 @@ function App() {
     });
   };
 
-  const filterWeather = (todayWeather: todayWeather[]) => {
+  const filterWeather = (todayWeather: todayWeather[], gender: string) => {
     let rainy =
       todayWeather.filter((item) => Number(item.POP) >= 60).length > 0
         ? "강수확률 높음"
@@ -120,27 +121,28 @@ function App() {
         ? "습함"
         : "습하지않음";
     let total = `${rainy} , ${temp} , ${humidity} 
-    이날씨에 대한 설명을 다음과 같은 양식을 꼭 지켜서 말해줘
+    이날씨에 대한 설명을 다음과 같은 양식을 꼭 지켜서 말해줘 
+    
     1. 이 날씨에 대한 자세한 설명을 해줘
     2. 이 날씨에 어떤 의상을 입어야할지 자세히 설명해줘(구체적인 추천 의상은 없어야돼)
-    3. 상의를 설명없이 추천하는 리스트만 보여줘
-    4. 하의를 설명없이 추천하는 리스트만 보여줘
-    3,4에서 - 이 표시 적지마
-    예를들면 
+    3. 상의를 설명없이 ${gender}을 기준으로 추천하는 리스트외엔 아무것도 적지말고 보여줘 예를들어 상의:??이렇게 적지마 그리고 - 이표시도 적지마
+    4. 하의를 설명없이 ${gender}을 기준으로 추천하는 리스트외엔 아무것도 적지말고 보여줘
+    
+    아래는 예시야 이거 그대로 적지마  
     1. 이 날씨는 강수확률이 없고 최저 온도는 25.0도, 최고 온도는 35.0도로 높은 온도가 예상됩니다. 또한 습도가 높아서 습한 느낌이 느껴질 것입니다.
 2. 이 날씨에는 가볍고 시원한 옷을 입는 것이 좋습니다. 얇고 통기성이 좋은 소재의 옷을 선택하고, 반팔 티셔츠나 얇은 셔츠, 반바지나 면바지를 입는 것이 적합할 것입니다.
-3. 반팔 티셔츠, 얇은 셔츠, 나시티, 폴로 셔츠, 민소매 탑
-4. 반바지, 면바지, 린넨 바지, 조거 팬츠 
-딱 이렇게 적어줘
+3. ? , ? , ? ,?
+4. ? , ? ,? ,?
+이런식으로 적어주고 그리고 3,4에서 쓸데없는 기호나 상의: 이런거 절대 적지말고 위에 4개 꼭 적어줘
     `;
     setSummary(total);
   };
 
   useEffect(() => {
-    if (todayWeather) {
-      filterWeather(todayWeather);
+    if (todayWeather && gender) {
+      filterWeather(todayWeather, gender);
     }
-  }, [todayWeather]);
+  }, [todayWeather, gender]);
   return (
     <div>
       {todayWeather.length > 1 ? (
@@ -161,8 +163,12 @@ function App() {
               )}
             </div>
 
-            <div className="md:h-full max-w-screen-xl ">
-              <RecWear summary={summary} />
+            <div className="md:h-full max-w-screen-xl min-w-60">
+              <RecWear
+                summary={summary}
+                setGender={setGender}
+                gender={gender}
+              />
             </div>
           </div>
           <div className="flex justify-end px-10 items-center text-xl">

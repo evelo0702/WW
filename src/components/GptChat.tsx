@@ -51,11 +51,7 @@ const GptChat: React.FC<Props> = ({ summary, setComment }) => {
   }, [summary]);
 
   return (
-    <div>
-      {/* <button onClick={handleSubmit}>전송</button> */}
-      {error && <p style={{ color: "red" }}>응답 에러: {error}</p>}{" "}
-      {/* 에러 메시지 표시 */}
-    </div>
+    <div>{error && <p style={{ color: "red" }}>응답 에러: {error}</p>} </div>
   );
 };
 

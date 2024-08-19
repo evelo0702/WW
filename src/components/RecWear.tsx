@@ -4,20 +4,41 @@ import { changeGptComment } from "../utils/changeGptComment";
 
 interface Props {
   summary: string;
+  setGender: React.Dispatch<React.SetStateAction<string>>;
+  gender: string;
 }
-const RecWear: React.FC<Props> = ({ summary }) => {
+const RecWear: React.FC<Props> = ({ summary, setGender, gender }) => {
   const [comment, setComment] = useState("");
   const [ansGpt, setAns] = useState<string[]>([]);
   useEffect(() => {
-    if (comment) {
+    if (comment && gender) {
       let temp = changeGptComment(comment);
       setAns(temp);
     }
-  }, [comment]);
+  }, [comment, gender]);
 
   return (
     <div className="h-full w-full flex flex-col max-[460px]:text-sm">
       <p className="text-4xl text-center my-4">오늘의 날씨 from AI </p>
+      <div className="flex justify-around">
+        <button
+          className={`${
+            gender === "남성" ? "bg-sky-500" : "bg-white"
+          } rounded-md w-1/2`}
+          onClick={() => setGender("남성")}
+        >
+          남성
+        </button>
+        <button
+          className={`${
+            gender === "여성" ? "bg-red-500" : "bg-white"
+          } rounded-md w-1/2`}
+          onClick={() => setGender("여성")}
+        >
+          여성
+        </button>
+      </div>
+      {!gender && <div className="text-center">성별을 선택해주세요</div>}
       {summary && <GptChat summary={summary} setComment={setComment} />}
 
       <div className="md:h-1/4 h-1/4 flex items-center p-4 border-y-2">
