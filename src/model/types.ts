@@ -20,7 +20,7 @@ export interface Location {
   addressName?: string;
 }
 export interface Locations {
-  [key: string]: string; // key는 string, value도 string
+  [key: string]: string; 
 }
 
 export interface threeDayWeather {

@@ -41,8 +41,6 @@ const ShowWeather: React.FC<Props> = ({
   useEffect(() => {
     getCurWxData(TodayWeather);
   }, [TodayWeather]);
-  // 지역명을 slice해서 해당값으로 getRegionCode를 호출해서 지역코드를 얻어오는 메소드가 필요함
-
   return (
     <div className="md:h-95vh w-full flex flex-col">
       <div className="flex w-full md:h-1/5 m-2 h-48">

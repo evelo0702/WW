@@ -8,8 +8,7 @@ const GptChat: React.FC<Props> = ({ summary, setComment }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async () => {
-    const url = "https://api.openai.com/v1/chat/completions"; // GPT-3.5 Turbo API에 맞게 URL 수정
-
+    const url = "https://api.openai.com/v1/chat/completions"; 
     const requestOptions = {
       method: "POST",
       headers: {
@@ -18,7 +17,7 @@ const GptChat: React.FC<Props> = ({ summary, setComment }) => {
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: summary }], // 대화 형식으로 변경
+        messages: [{ role: "user", content: summary }], 
         max_tokens: 500,
         temperature: 0.7,
       }),
@@ -28,19 +27,18 @@ const GptChat: React.FC<Props> = ({ summary, setComment }) => {
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
-        // 응답 상태가 OK가 아닌 경우 에러 처리
+
         const errorData = await response.json();
         setError(`Error: ${errorData.error.message}`);
-        setComment(""); // 이전 응답 지우기
+        setComment(""); 
         return;
       }
 
       const data = await response.json();
-      setComment(data.choices[0].message.content.trim()); // GPT-3.5 Turbo 응답 처리
-      setError(""); // 에러 초기화
+      setComment(data.choices[0].message.content.trim()); 
     } catch (err) {
       setError("Request failed. Please try again.");
-      setComment(""); // 이전 응답 지우기
+      setComment(""); 
     }
   };
   useEffect(() => {

@@ -398,24 +398,24 @@ const locationsUseGetWeekend: Locations = {
 };
 
 export function getRegionCode(type: string, name: string) {
-  // locations의 키를 순회하며 해당 코드를 찾는다
+
 
   let code = name.split(" ")[0].slice(0, -1);
   if (type === "weekendTemp") {
     for (const key in locationsUseGetWeekend) {
       if (key === code) {
-        return locationsUseGetWeekend[key]; // 찾은 경우 해당 지역 코드를 반환
+        return locationsUseGetWeekend[key]; 
       }
     }
-    return null; // 찾지 못한 경우 null 반환
+    return null; 
   } 
   else {
     for (const key in locations) {
       if (key === code) {
-        return locations[key]; // 찾은 경우 해당 지역 코드를 반환
+        return locations[key]; 
       }
     }
-    return null; // 찾지 못한 경우 null 반환
+    return null; 
   }
 }
 

@@ -21,7 +21,6 @@ import Loader from "./components/Loader";
 
 const appKey = import.meta.env.VITE_KAKAO_KEY;
 function App() {
-  // kakao api script 연결
   useEffect(() => {
     const script = document.createElement("script");
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&autoload=false`;
@@ -48,16 +47,12 @@ function App() {
   const [summary, setSummary] = useState("");
   const [gender, setGender] = useState("");
   useEffect(() => {
-    // 날씨를 받아오기위해 날짜를 포맷에 맞게 세팅
     setCurrentDate(formattedDate());
-    // 현재 위치의 위도,경도를 불러오는 메소드
     searchDefaultLocation();
   }, []);
 
-  // 위치 변경될때만 날씨 정보를 호출
   useEffect(() => {
     if (currentDate && location) {
-      // 날씨 정보를 api로부터 받아오는 메소드
       getTodayWeatherData(
         currentDate,
         location.x,
@@ -94,8 +89,6 @@ function App() {
       getWeekendData();
     }
   }, [todayWeather]);
-  console.log(weekendWeather);
-  // 현재위치에따른location값을 불러오는 메소드
   const searchDefaultLocation = () => {
     navigator.geolocation.getCurrentPosition(async (pos) => {
       let temp = { latitude: 0, longitude: 0 };

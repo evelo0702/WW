@@ -25,7 +25,6 @@ const SearchModal: React.FC<ModalProps> = ({
 }) => {
   let [roadAdd, setRoadAdd] = useState("");
 
-  // 주소검색 api에서 받은 데이터로 위도 경도를 받아오는 메소드
   const getData = async (data: string) => {
     const url = "https://dapi.kakao.com/v2/local/search/address.json";
     const query = `${data}`;
@@ -55,7 +54,7 @@ const SearchModal: React.FC<ModalProps> = ({
     }
   }, [roadAdd]);
 
-  if (!isOpen) return null; // 모달이 열리지 않은 경우 아무것도 렌더링하지 않음
+  if (!isOpen) return null;
   return (
     <div style={overlayStyle}>
       <div style={modalStyle} className="md:w-1/2">
