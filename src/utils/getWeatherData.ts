@@ -197,14 +197,29 @@ export async function getTodayWeatherData(
     console.error(err as Error);
   }
 }
+const getCurrentTimeFormatted = () => {
+  const now = new Date();
+  const hours = now.getHours();
+
+  if (hours < 6) {
+    // 06:00 이전일 경우
+    return Number(formattedDate) - 1 + "0600";
+  } else {
+    // 06:00 이후일 경우
+    return formattedDate + "0600";
+  }
+};
 
 export async function getWeekendWeatherData(wkRegion: string) {
   try {
-    let date = formattedDate() + "0600";
+    const hours = new Date().getHours();
+    const date =
+      hours < 6
+        ? Number(formattedDate()) - 1 + "0600"
+        : formattedDate() + "0600";
     const res = await axios.get(
       `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=10&dataType=JSON&regId=${wkRegion}&tmFc=${date}`
     );
-    console.log(res.data);
     if (res.data.response.body) {
       return res.data.response.body.items.item[0];
     }
@@ -215,7 +230,11 @@ export async function getWeekendWeatherData(wkRegion: string) {
 
 export async function getWeekendTempData(wkRegion: string | null) {
   try {
-    let date = formattedDate() + "0600";
+    const hours = new Date().getHours();
+    const date =
+      hours < 6
+        ? Number(formattedDate()) - 1 + "0600"
+        : formattedDate() + "0600";
     const res = await axios.get(
       `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=10&dataType=JSON&regId=${wkRegion}&tmFc=${date}`
     );
