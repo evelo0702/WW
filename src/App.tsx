@@ -11,8 +11,8 @@ import RecWear from "./components/RecWear";
 import ShowWeather from "./components/ShowWeather";
 import {
   Location,
+  threeDayWeather,
   todayWeather,
-  twodayWeather,
   weekendWeatherData,
 } from "./model/types";
 import { getRegionCode } from "./data/regionCode";
@@ -33,7 +33,7 @@ function App() {
   }, []);
 
   const [todayWeather, setTodayWeather] = useState([{} as todayWeather]);
-  const [twodayWeather, settwodayWeather] = useState({} as twodayWeather);
+  const [threedayWeather, setthreedayWeather] = useState({} as threeDayWeather);
   const [weekendWeather, setweekendWeather] = useState(
     [] as weekendWeatherData[]
   );
@@ -63,7 +63,7 @@ function App() {
         location.x,
         location.y,
         setTodayWeather,
-        settwodayWeather
+        setthreedayWeather
       );
       let regionName = location.regionName;
       if (regionName) {
@@ -75,15 +75,13 @@ function App() {
   const getWeekendData = async () => {
     if (regionCode) {
       const result = await getWeekendWeatherData(regionCode);
-      // console.log(result);
       if (location.regionName) {
         const result2 = await getWeekendTempData(
           getRegionCode("weekendTemp", location.regionName)
         );
-        // console.log(result2);
         if (result2) {
-          let temp = { ...result, ...twodayWeather, ...result2 };
-
+          let temp = { ...result, ...threedayWeather, ...result2 };
+          console.log(temp);
           let filter = changeWeekendWeather(temp);
           setweekendWeather(filter);
         }
@@ -96,6 +94,7 @@ function App() {
       getWeekendData();
     }
   }, [todayWeather]);
+  console.log(weekendWeather);
   // 현재위치에따른location값을 불러오는 메소드
   const searchDefaultLocation = () => {
     navigator.geolocation.getCurrentPosition(async (pos) => {
