@@ -51,6 +51,8 @@ const ShowWeather: React.FC<Props> = ({
               alt=""
               className="h-full w-full object-cover"
               loading="eager"
+              width={500}
+              height={500}
             />
           </div>
 
