@@ -47,9 +47,10 @@ const ShowWeather: React.FC<Props> = ({
         <div className="w-1/2">
           <div className="h-2/3 flex ">
             <img
-              src="/Logo.png"
+              src="/Logo.webp"
               alt=""
               className="h-full w-full object-cover"
+              loading="eager"
             />
           </div>
 
@@ -67,7 +68,7 @@ const ShowWeather: React.FC<Props> = ({
           {TodayWeather.length > 1 && curWx && (
             <div className="md:w-1/2 w-3/4 overflow-hidden rounded-xl">
               <img
-                src={`/${curWx[0].ICON}.png`}
+                src={`/${curWx[0].ICON}.webp`}
                 className="w-full h-full"
                 alt=""
               />
@@ -85,19 +86,6 @@ const ShowWeather: React.FC<Props> = ({
           </div>
         </div>
       </div>
-      {/* <div className="border-4  rounded-md flex m-2 items-center max-[480px]:text-sm max-[480px]:h-48">
-        <div
-          className="
-        grid h-full p-3
-         grid-cols-10"
-        >
-          {TodayWeather.map((item, index) => (
-            <div>
-              <TodayShow item={item} key={item.ID} index={index} />
-            </div>
-          ))}
-        </div>
-      </div> */}
 
       <div className="border-4 rounded-md flex m-2 items-center max-[480px]:text-sm max-[480px]:h-48">
         <div className="grid h-full p-3 grid-cols-10 gap-2">

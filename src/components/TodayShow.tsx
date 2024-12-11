@@ -10,7 +10,7 @@ const TodayShow: React.FC<Props> = ({ item }) => {
       <div className="flex flex-col items-center">
         <p>{Time}시</p>
         <img
-          src={`/${item.ICON}.png`}
+          src={`/${item.ICON}.webp`}
           className="rounded-xl  md:h-1/2 p-1"
           alt=""
         />

@@ -29,7 +29,7 @@ const WeekendShow: React.FC<Props> = ({ WeekendWeather }) => {
           <p>오전</p>
 
           <img
-            src={`/${icon.amIcon}.png`}
+            src={`/${icon.amIcon}.webp`}
             className="rounded-xl p-1 object-contain w-1/3 max-[640px]:w-full"
             alt=""
           />
@@ -39,7 +39,7 @@ const WeekendShow: React.FC<Props> = ({ WeekendWeather }) => {
           <p>오후</p>
 
           <img
-            src={`/${icon.pmIcon}.png`}
+            src={`/${icon.pmIcon}.webp`}
             className="rounded-xl p-1 object-contain w-1/3 max-[640px]:w-full"
             alt=""
           />

@@ -168,6 +168,15 @@ function App() {
         </div>
       ) : (
         <div className="flex justify-center items-center w-full h-full">
+          <div className="h-2/3 flex ">
+            <img
+              src="/Logo.webp"
+              alt=""
+              className="h-full w-full object-cover"
+              loading="eager"
+            />
+          </div>
+
           <Loader />
           <p className="ms-4 text-3xl">API DATA IS LOADING</p>
         </div>
