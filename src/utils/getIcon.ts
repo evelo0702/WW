@@ -1,50 +1,35 @@
 import { todayWeather, weekendWeatherData } from "../model/types";
 
 export const getIcon = (TodayWeather: todayWeather[]) => {
-  console.log("getTodayIcon");
-  console.log(TodayWeather);
-  // 1순위 - 강수형태 2순위 - 하늘 상태
-  // 강수확률 0이고 하늘상태 맑음이면 20:00시 이전은 Sunny 이후면 Claer
-  if (TodayWeather.length > 1) {
-    for (let i = 0; i < TodayWeather.length; i++) {
-      if (parseInt(TodayWeather[i].PTY) > 0) {
-        switch (TodayWeather[i].PTY) {
-          case "1":
-            TodayWeather[i].ICON = "Rainy";
-            break;
-          case "2":
-            TodayWeather[i].ICON = "Sleet";
-            break;
-          case "3":
-            TodayWeather[i].ICON = "Snowy";
-            break;
-          case "4":
-            TodayWeather[i].ICON = "Rainy";
-            break;
-        }
-      } else if (parseInt(TodayWeather[i].SKY) === 1) {
-        if (parseInt(TodayWeather[i].TIME) < 2000) {
-          TodayWeather[i].ICON = "Sunny";
-        } else {
-          TodayWeather[i].ICON = "Clear";
-        }
-      } else if (
-        parseInt(TodayWeather[i].SKY) === 3 &&
-        parseInt(TodayWeather[i].TIME) < 2000
-      ) {
-        TodayWeather[i].ICON = "PartlyCloudy";
-      } else {
-        TodayWeather[i].ICON = "Cloudy";
-      }
+  // TodayWeather 배열이 비어있지 않으면 처리 시작
+  if (TodayWeather.length <= 1) return;
+
+  // 날씨 정보를 순회하여 ICON 할당
+  TodayWeather.forEach((weather) => {
+    const { PTY, SKY, TIME } = weather; // 객체 구조 분해 할당
+
+    // 강수형태에 따라 아이콘 설정
+    if (parseInt(PTY) > 0) {
+      weather.ICON = ["Rainy", "Sleet", "Snowy", "Rainy"][parseInt(PTY) - 1];
     }
-  }
+    // 맑은 하늘일 때 (하늘 상태 1), 시간에 따라 Sunny 또는 Clear
+    else if (parseInt(SKY) === 1) {
+      weather.ICON = parseInt(TIME) < 2000 ? "Sunny" : "Clear";
+    }
+    // 부분 구름 낀 하늘일 때 (하늘 상태 3), 20:00 이전 PartlyCloudy
+    else if (parseInt(SKY) === 3 && parseInt(TIME) < 2000) {
+      weather.ICON = "PartlyCloudy";
+    }
+    // 그 외에는 Cloudy
+    else {
+      weather.ICON = "Cloudy";
+    }
+  });
 };
 
 export const getWeekendWeatherIcon = (
   weekendWeatherData: weekendWeatherData
 ) => {
-  console.log("getWeekendIcon");
-
   let temp = { amIcon: "", pmIcon: "" };
 
   switch (weekendWeatherData.wfAm) {

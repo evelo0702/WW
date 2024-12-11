@@ -23,7 +23,6 @@ export interface Locations {
   [key: string]: string; // key는 string, value도 string
 }
 
-
 export interface twodayWeather {
   taMin1: number;
   taMax1: number;

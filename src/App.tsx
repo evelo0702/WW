@@ -67,7 +67,7 @@ function App() {
       );
       let regionName = location.regionName;
       if (regionName) {
-        setRegionCode(getRegionCode("today", regionName));
+        setRegionCode(getRegionCode("", regionName));
       }
     }
   }, [location, currentDate]);
@@ -75,11 +75,12 @@ function App() {
   const getWeekendData = async () => {
     if (regionCode) {
       const result = await getWeekendWeatherData(regionCode);
-
+      // console.log(result);
       if (location.regionName) {
         const result2 = await getWeekendTempData(
-          getRegionCode("weekend", location.regionName)
+          getRegionCode("weekendTemp", location.regionName)
         );
+        // console.log(result2);
         if (result2) {
           let temp = { ...result, ...twodayWeather, ...result2 };
 
@@ -95,7 +96,6 @@ function App() {
       getWeekendData();
     }
   }, [todayWeather]);
-
   // 현재위치에따른location값을 불러오는 메소드
   const searchDefaultLocation = () => {
     navigator.geolocation.getCurrentPosition(async (pos) => {
