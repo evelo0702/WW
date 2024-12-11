@@ -76,7 +76,6 @@ function App() {
         );
         if (result2) {
           let temp = { ...result, ...threedayWeather, ...result2 };
-          console.log(temp);
           let filter = changeWeekendWeather(temp);
           setweekendWeather(filter);
         }

@@ -197,18 +197,6 @@ export async function getTodayWeatherData(
     console.error(err as Error);
   }
 }
-const getCurrentTimeFormatted = () => {
-  const now = new Date();
-  const hours = now.getHours();
-
-  if (hours < 6) {
-    // 06:00 이전일 경우
-    return Number(formattedDate) - 1 + "0600";
-  } else {
-    // 06:00 이후일 경우
-    return formattedDate + "0600";
-  }
-};
 
 export async function getWeekendWeatherData(wkRegion: string) {
   try {
