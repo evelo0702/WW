@@ -25,17 +25,20 @@ interface Forecast {
   TMX: string;
 }
 let data = {
+  // 강수확률
   rnSt1Am: 0,
   rnSt1Pm: 0,
   rnSt2Am: 0,
   rnSt2Pm: 0,
+  // 최저 최고온도
   taMin1: 0,
-  wf1Am: "",
   taMax1: 0,
-  wf1Pm: "",
   taMin2: 0,
-  wf2Am: "",
   taMax2: 0,
+  // 하늘 상태
+  wf1Am: "",
+  wf1Pm: "",
+  wf2Am: "",
   wf2Pm: "",
 };
 export async function getTodayWeatherData(
@@ -45,59 +48,48 @@ export async function getTodayWeatherData(
   setTodayWeather: React.Dispatch<React.SetStateAction<todayWeather[]>>,
   settwodayWeather: React.Dispatch<React.SetStateAction<twodayWeather>>
 ) {
-  console.log("getTodayWeatherData");
   try {
     const res = await axios.get(
-      // 초단기예보
-      // `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${secret_key}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${nowDate}&base_time=0600&nx=${x}&ny=${y}`
-
       // 단기예보
       `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${nowDate}&base_time=0200&nx=${x}&ny=${y}`
     );
-
     if (res.data.response.body) {
       // 오늘의 날씨
       let temp = res.data.response.body.items.item;
       let totalForecast = temp.reduce(
         (acc: Forecast, item: ApiData) => {
-          if (item.fcstDate === item.baseDate) {
-            if (item.category === "TMN") {
-              acc.TMN = item.fcstValue;
-            }
-            if (item.category === "TMX") {
-              acc.TMX = item.fcstValue;
-            }
-            if (
-              item.category === "POP" &&
-              parseInt(item.fcstTime.slice(0, -2)) % 2 === 0
-            ) {
-              acc.POP.push(item.fcstValue);
-              acc.TIME.push(item.fcstTime);
-            } else if (
-              item.category === "PTY" &&
-              parseInt(item.fcstTime.slice(0, -2)) % 2 === 0
-            ) {
-              acc.PTY.push(item.fcstValue);
-            } else if (
-              item.category === "PCP" &&
-              parseInt(item.fcstTime.slice(0, -2)) % 2 === 0
-            ) {
-              acc.PCP.push(item.fcstValue);
-            } else if (
-              item.category === "REH" &&
-              parseInt(item.fcstTime.slice(0, -2)) % 2 === 0
-            ) {
-              acc.REH.push(item.fcstValue);
-            } else if (
-              item.category === "SKY" &&
-              parseInt(item.fcstTime.slice(0, -2)) % 2 === 0
-            ) {
-              acc.SKY.push(item.fcstValue);
-            } else if (
-              item.category === "TMP" &&
-              parseInt(item.fcstTime.slice(0, -2)) % 2 === 0
-            ) {
-              acc.TMP.push(item.fcstValue);
+          // 오늘 날짜의 데이터만 필터링
+          if (item.fcstDate !== item.baseDate) return acc;
+
+          // 최저 및 최고 온도는 바로 할당
+          if (item.category === "TMN") acc.TMN = item.fcstValue;
+          if (item.category === "TMX") acc.TMX = item.fcstValue;
+
+          // 짝수 시간대(2시간 간격) 조건 처리
+          const isEvenTime = parseInt(item.fcstTime.slice(0, -2)) % 2 === 0;
+
+          // 각 카테고리별로 짝수 시간대의 데이터를 배열에 추가
+          if (isEvenTime) {
+            switch (item.category) {
+              case "POP":
+                acc.POP.push(item.fcstValue);
+                acc.TIME.push(item.fcstTime);
+                break;
+              case "PTY":
+                acc.PTY.push(item.fcstValue);
+                break;
+              case "PCP":
+                acc.PCP.push(item.fcstValue);
+                break;
+              case "REH":
+                acc.REH.push(item.fcstValue);
+                break;
+              case "SKY":
+                acc.SKY.push(item.fcstValue);
+                break;
+              case "TMP":
+                acc.TMP.push(item.fcstValue);
+                break;
             }
           }
 
@@ -115,6 +107,7 @@ export async function getTodayWeatherData(
           TIME: [],
         }
       );
+
       let temp2 = [];
       for (let i = 0; i < totalForecast.POP.length; i++) {
         let temp = {
@@ -132,92 +125,72 @@ export async function getTodayWeatherData(
         };
         temp2.push(temp);
       }
+
       setTodayWeather(temp2);
-      console.log(temp2);
 
       // 내일 모레 날씨
       let temp3 = res.data.response.body.items.item.slice(260);
+      // 내일, 모레 날씨 데이터에서 필요한 카테고리 값만 추출
       let temp4 = temp3.filter(
         (i: ApiData) =>
-          i.category === "TMX" ||
-          i.category === "TMN" ||
-          (i.fcstTime === "0600" && i.category === "SKY") ||
-          (i.fcstTime === "1800" && i.category === "SKY") ||
-          (i.fcstTime === "0600" && i.category === "POP") ||
-          (i.fcstTime === "1800" && i.category === "POP")
+          ["TMX", "TMN"].includes(i.category) ||
+          (["0600", "1800"].includes(i.fcstTime) &&
+            ["SKY", "POP"].includes(i.category))
       );
-      temp4.map((i: ApiData) => {
-        if (Number(i.fcstDate) === Number(nowDate) + 1) {
-          if (i.fcstTime === "0600") {
+      console.log(temp4);
+      temp4.forEach((i: ApiData) => {
+        // 시간대 및 카테고리별로 데이터 처리
+        const isAm = i.fcstTime === "0600";
+        const isPm = i.fcstTime === "1800";
+        const isTomorrow = Number(nowDate) + 1;
+
+        // 시간대에 따른 하늘 상태(SKY)와 강수 확률(POP) 처리
+        if (isAm || isPm) {
+          if (["SKY", "POP"].includes(i.category)) {
+            const timePeriod = isAm
+              ? Number(i.fcstDate) === isTomorrow
+                ? "wf1Am"
+                : "wf2Am"
+              : Number(i.fcstDate) === isTomorrow
+              ? "wf1Pm"
+              : "wf2Pm";
+            const rainPeriod = isAm
+              ? Number(i.fcstDate) === isTomorrow
+                ? "rnSt1Am"
+                : "rnSt2Am"
+              : Number(i.fcstDate) === isTomorrow
+              ? "rnSt1Pm"
+              : "rnSt2Pm";
+
             if (i.category === "SKY") {
-              switch (i.fcstValue) {
-                case "1":
-                  return (data.wf1Am = "맑음");
-                case "3":
-                  return (data.wf1Am = "구름 많음");
-                case "4":
-                  return (data.wf1Am = "흐림");
-              }
+              const skyConditions: { [key: string]: string } = {
+                "1": "맑음",
+                "3": "구름 많음",
+                "4": "흐림",
+              };
+              data[timePeriod] = skyConditions[i.fcstValue];
             } else if (i.category === "POP") {
-              data.rnSt1Am = Number(i.fcstValue);
-            }
-          }
-          if (i.category === "TMN") {
-            data.taMin1 = Number(i.fcstValue);
-          }
-          if (i.category === "TMX") {
-            data.taMax1 = Number(i.fcstValue);
-          } else if (i.fcstTime === "1800") {
-            if (i.category === "SKY") {
-              switch (i.fcstValue) {
-                case "1":
-                  return (data.wf1Pm = "맑음");
-                case "3":
-                  return (data.wf1Pm = "구름 많음");
-                case "4":
-                  return (data.wf1Pm = "흐림");
-              }
-            } else if (i.category === "POP") {
-              data.rnSt1Pm = Number(i.fcstValue);
-            }
-          }
-        } else if (Number(i.fcstDate) === Number(nowDate) + 2) {
-          if (i.fcstTime === "0600") {
-            if (i.category === "SKY") {
-              switch (i.fcstValue) {
-                case "1":
-                  return (data.wf2Am = "맑음");
-                case "3":
-                  return (data.wf2Am = "구름 많음");
-                case "4":
-                  return (data.wf2Am = "흐림");
-              }
-            } else if (i.category === "POP") {
-              data.rnSt2Am = Number(i.fcstValue);
-            }
-          }
-          if (i.category === "TMN") {
-            data.taMin2 = Number(i.fcstValue);
-          }
-          if (i.category === "TMX") {
-            data.taMax2 = Number(i.fcstValue);
-          } else if (i.fcstTime === "1800") {
-            if (i.category === "SKY") {
-              switch (i.fcstValue) {
-                case "1":
-                  return (data.wf2Pm = "맑음");
-                case "3":
-                  return (data.wf2Pm = "구름 많음");
-                case "4":
-                  return (data.wf2Pm = "흐림");
-              }
-            } else if (i.category === "POP") {
-              data.rnSt2Pm = Number(i.fcstValue);
+              data[rainPeriod] = Number(i.fcstValue);
             }
           }
         }
+        console.log(data);
+
+        // 기온 처리 (최저, 최고 기온)
+        if (i.category === "TMN") {
+          const targetKey =
+            Number(i.fcstDate) === isTomorrow ? "taMin1" : "taMin2";
+          data[targetKey] = Number(i.fcstValue);
+        }
+
+        if (i.category === "TMX") {
+          const targetKey =
+            Number(i.fcstDate) === isTomorrow ? "taMax1" : "taMax2";
+          data[targetKey] = Number(i.fcstValue);
+        }
       });
       settwodayWeather(data);
+      console.log(data);
     }
   } catch (err) {
     console.error(err as Error);
@@ -227,8 +200,6 @@ export async function getTodayWeatherData(
 // 중기날씨api는 오늘기준으로 3일후부터 제공하기때문에
 // 1,2일후 날씨는 단기예보api를 사용해서 따로 받아와야함
 export async function getWeekendWeatherData(wkRegion: string) {
-  console.log("getWeekendWeatherData");
-
   try {
     // 중기날씨
 
@@ -246,9 +217,7 @@ export async function getWeekendWeatherData(wkRegion: string) {
     const res = await axios.get(
       `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=10&dataType=JSON&regId=${wkRegion}&tmFc=${date}`
     );
-
     if (res.data.response.body) {
-      console.log(res.data.response.body.items.item[0]);
       return res.data.response.body.items.item[0];
     }
   } catch (err) {
@@ -257,7 +226,6 @@ export async function getWeekendWeatherData(wkRegion: string) {
 }
 // 중기기온을 받아오는 메소드
 export async function getWeekendTempData(wkRegion: string | null) {
-  console.log("getWeekendTempData");
   try {
     let date = formattedDate();
     let time = new Date().getHours();
@@ -271,10 +239,8 @@ export async function getWeekendTempData(wkRegion: string | null) {
     const res = await axios.get(
       `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=10&dataType=JSON&regId=${wkRegion}&tmFc=${date}`
     );
-
     if (res.data.response.body) {
       let data = res.data.response.body.items.item[0];
-      console.log(data);
       let temp = {
         taMax3: data.taMax3,
         taMax4: data.taMax4,
