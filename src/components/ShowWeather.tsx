@@ -71,7 +71,7 @@ const ShowWeather: React.FC<Props> = ({
             <div className="md:w-1/2 w-3/4 overflow-hidden rounded-xl">
               <img
                 src={`/${curWx[0].ICON}.webp`}
-                className="w-full h-full"
+                className="w-full h-auto object-cover"
                 alt=""
               />
             </div>
