@@ -9,6 +9,7 @@ export default {
       height: {
         "95vh": "95vh",
       },
+      fontDisplay: "swap",
     },
   },
   plugins: [],
