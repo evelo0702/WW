@@ -58,7 +58,7 @@ const RecWear: React.FC<Props> = ({ summary, setGender, gender }) => {
         {summary && <GptChat summary={summary} setComment={setComment} />}
         {loading && ansGpt.length === 0 ? (
           <div className="max-[768px]:my-10 md:h-3/5">
-            <Loader text={"ai가 날씨를 분석하고있습니다"} />
+            <Loader text={"ai가 날씨를 분석하고있습니다"} mode="side" />
           </div>
         ) : (
           <>

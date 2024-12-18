@@ -135,7 +135,7 @@ function App() {
   return (
     <div>
       {todayWeather.length > 1 ? (
-        <div className="">
+        <div>
           <div
             className="flex md:flex-row flex-col px-10 md:h-95vh text-2xl max-w-screen-xl mx-auto
       max-[380px]:text-lg"
@@ -166,17 +166,14 @@ function App() {
           </div>
         </div>
       ) : (
-        <div className="flex justify-center items-center w-full h-full">
-          <div className="h-2/3 flex ">
-            <img
-              src="/Logo.webp"
-              alt=""
-              className="h-full w-full object-cover"
-              loading="eager"
-            />
-          </div>
-
-          <Loader text="API DATA IS LOADING" />
+        <div className="w-full h-95vh max-[768px]:h-1/2 flex flex-col justify-center items-center">
+          <img
+            src="/Logo.webp"
+            alt=""
+            className="rounded-xl mb-8"
+            loading="eager"
+          />
+          <Loader text="API DATA IS LOADING" mode="main" />
         </div>
       )}
     </div>
