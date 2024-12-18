@@ -33,7 +33,7 @@ const WeekendShow: React.FC<Props> = ({ WeekendWeather }) => {
             alt=""
           />
         </div>
-        <div className="flex items-center mx-2 justify-center max-[640px]:flex-col">
+        <div className="flex items-center md:mx-2 justify-center max-[640px]:flex-col">
           오후<p>{WeekendWeather.rnStPm}%</p>
           <img
             src={`/${icon.pmIcon}.webp`}
