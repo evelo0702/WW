@@ -133,11 +133,11 @@ function App() {
     }
   }, [todayWeather, gender]);
   return (
-    <div>
+    <div className="h-90vh ">
       {todayWeather.length > 1 ? (
         <div>
           <div
-            className="flex md:flex-row flex-col px-10 md:h-95vh text-2xl max-w-screen-xl mx-auto
+            className="flex md:flex-row flex-col px-10 md:h-90vh text-2xl max-w-screen-xl mx-auto
       max-[380px]:text-lg"
           >
             <div className="h-5/6 w-full md:w-2/3 md:me-4">
@@ -166,7 +166,7 @@ function App() {
           </div>
         </div>
       ) : (
-        <div className="w-full h-95vh max-[768px]:h-1/2 flex flex-col justify-center items-center">
+        <div className="w-full h-95vh  flex flex-col justify-center items-center">
           <img
             src="/Logo.webp"
             alt=""

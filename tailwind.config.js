@@ -8,6 +8,8 @@ export default {
       },
       height: {
         "95vh": "95vh",
+        "90vh": "90vh",
+        "85vh": "85vh",
       },
       fontDisplay: "swap",
     },

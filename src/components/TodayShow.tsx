@@ -9,11 +9,7 @@ const TodayShow: React.FC<Props> = ({ item }) => {
     <div className="flex border rounded-lg shadow-md h-full">
       <div className="flex flex-col items-center">
         <p>{Time}시</p>
-        <img
-          src={`/${item.ICON}.webp`}
-          className="rounded-xl  md:h-1/2 p-1"
-          alt=""
-        />
+        <img src={`/${item.ICON}.webp`} className="rounded-xl p-1" alt="" />
         <div className="flex my-2">
           {parseInt(item.TMP) >= 28 ? (
             <p className="text-red-700">{item.TMP}℃</p>

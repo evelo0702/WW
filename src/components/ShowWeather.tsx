@@ -42,7 +42,7 @@ const ShowWeather: React.FC<Props> = ({
     getCurWxData(TodayWeather);
   }, [TodayWeather]);
   return (
-    <div className="md:h-95vh w-full flex flex-col">
+    <div className="md:h-85vh w-full flex flex-col">
       <div className="flex w-full md:h-1/5 m-2 h-48">
         <div className="w-1/2">
           <div className="h-2/3 flex ">
@@ -94,11 +94,7 @@ const ShowWeather: React.FC<Props> = ({
           <div className="flex border rounded-lg shadow-md h-full">
             <div className="flex flex-col items-center">
               <p>시간</p>
-              <img
-                src={`/Clear.webp`}
-                className="rounded-xl  md:h-1/2 p-1"
-                alt=""
-              />
+              <img src={`/Clear.webp`} className="rounded-xl p-1" alt="" />
               <div className="flex my-2">
                 <p>온도</p>
               </div>
