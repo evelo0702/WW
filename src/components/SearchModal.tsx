@@ -48,6 +48,7 @@ const SearchModal: React.FC<ModalProps> = ({
       res.data.documents[0].road_address.region_3depth_name;
     setLocation(temp);
   };
+
   useEffect(() => {
     if (roadAdd) {
       getData(roadAdd);
@@ -55,6 +56,7 @@ const SearchModal: React.FC<ModalProps> = ({
   }, [roadAdd]);
 
   if (!isOpen) return null;
+
   return (
     <div style={overlayStyle}>
       <div style={modalStyle} className="md:w-1/2">
@@ -63,7 +65,9 @@ const SearchModal: React.FC<ModalProps> = ({
           defaultQuery={searchAddress}
           onComplete={(data) => setRoadAdd(data.roadAddress)}
         />
-        <button onClick={onClose}>닫기</button>
+        <button onClick={onClose} className="mt-4 p-2 bg-gray-200 rounded-md">
+          닫기
+        </button>
       </div>
     </div>
   );
@@ -80,6 +84,7 @@ const overlayStyle: React.CSSProperties = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  zIndex: 1000, // 최상위
 };
 
 const modalStyle: React.CSSProperties = {
