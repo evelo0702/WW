@@ -6,7 +6,7 @@ const TodayShow: React.FC<Props> = ({ item }) => {
   let Time = item.TIME.slice(0, -2);
 
   return (
-    <div className="flex border rounded-lg shadow-md h-full">
+    <div className="flex border rounded-lg shadow-md h-full  items-center">
       <div className="flex flex-col items-center">
         <p>{Time}시</p>
         <img src={`/${item.ICON}.webp`} className="rounded-xl p-1" alt="" />

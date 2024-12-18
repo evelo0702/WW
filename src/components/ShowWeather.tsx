@@ -89,9 +89,9 @@ const ShowWeather: React.FC<Props> = ({
         </div>
       </div>
 
-      <div className="border-4 rounded-md flex m-2 items-center relative max-[550px]:text-sm max-[380px]:text-xs max-[480px]:h-48">
-        <div className="grid h-full p-3 grid-cols-11 ">
-          <div className="flex border rounded-lg shadow-md h-full">
+      <div className="w-full mb-2 rounded-md flex items-center relative max-[550px]:text-xl  max-[480px]:h-48">
+        <div className="grid h-full grid-cols-11">
+          <div className="flex border rounded-lg shadow-md h-full items-center">
             <div className="flex flex-col items-center">
               <p>시간</p>
               <img src={`/Clear.webp`} className="rounded-xl p-1" alt="" />

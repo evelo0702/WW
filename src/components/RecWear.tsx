@@ -28,7 +28,7 @@ const RecWear: React.FC<Props> = ({ summary, setGender, gender }) => {
   const [loading, setLoading] = useState(false);
   return (
     <>
-      <div className="h-full w-full flex flex-col max-[460px]:text-sm">
+      <div className="h-full w-full flex flex-col max-[460px]:text-xl">
         <p className="text-4xl text-center my-4">오늘의 날씨 from AI </p>
         <div className="flex justify-around">
           <button
