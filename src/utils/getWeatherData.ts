@@ -122,7 +122,17 @@ export async function getTodayWeatherData(
         };
         temp2.push(temp);
       }
-      setTodayWeather(temp2);
+      console.log(temp2);
+
+      setTodayWeather(
+        temp2.filter(
+          (i) =>
+            i.TIME !== "0400" &&
+            i.TIME !== "1600" &&
+            i.TIME !== "1000" &&
+            i.TIME !== "1400"
+        )
+      );
       let temp3 = res.data.response.body.items.item.slice(260);
       let temp4 = temp3.filter(
         (i: ApiData) =>

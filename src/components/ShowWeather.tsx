@@ -43,7 +43,7 @@ const ShowWeather: React.FC<Props> = ({
   }, [TodayWeather]);
   return (
     <div className="md:h-85vh w-full flex flex-col">
-      <div className="flex w-full md:h-1/5 m-2 h-48">
+      <div className="flex w-full md:h-1/4  m-2 h-1/4">
         <div className="w-1/2">
           <div className="h-2/3 flex ">
             <img
@@ -56,7 +56,7 @@ const ShowWeather: React.FC<Props> = ({
             />
           </div>
 
-          <div className="h-1/3 font-dongle text-center md:justify-center flex max-[460px]:text-sm ">
+          <div className="h-1/3 font-dongle text-center md:justify-center flex max-[460px]:text-xl ">
             <div className="w-full flex flex-col">
               <div className="">
                 <SearchAddress setLocation={setLocation} />
@@ -66,9 +66,9 @@ const ShowWeather: React.FC<Props> = ({
           </div>
         </div>
 
-        <div className="pt-4 flex flex-col md:w-1/2 w-1/3 h-full items-center justify-center overflow-hidden ">
+        <div className="pt-4  flex flex-col md:w-1/2 w-1/2  items-center justify-center overflow-hidden ">
           {TodayWeather.length > 1 && curWx && (
-            <div className="md:w-1/2 w-3/4 h-4/6 max-[760px]:h-1/2">
+            <div className="md:w-1/3 w-1/2 h-1/3 md:h-1/3">
               <img
                 src={`/${curWx[0].ICON}.webp`}
                 className="w-full h-full rounded-xl"
@@ -76,21 +76,22 @@ const ShowWeather: React.FC<Props> = ({
               />
             </div>
           )}
-          <div className="flex flex-col justify-around max-[460px]:text-sm">
+          <div className="flex flex-col justify-around ">
             {curWx && <p className="text-center">{curWx[0].TMP}℃</p>}
-            {TodayWeather.length > 1 ? (
+            {TodayWeather.length > 1 && (
               <p className="text-gray-500">
-                {TodayWeather[0].TMN}℃ / {TodayWeather[0].TMX}℃
+                최저{TodayWeather[0].TMN}℃ / 최고{TodayWeather[0].TMX}℃
               </p>
-            ) : (
-              <p>최저℃ / 최고℃ </p>
             )}
+          </div>
+          <div>
+            오전{TodayWeather[0].TMP}℃ / 오후{TodayWeather[5].TMP}℃
           </div>
         </div>
       </div>
 
-      <div className="w-full mb-2 rounded-md flex items-center relative max-[550px]:text-xl  max-[480px]:h-48">
-        <div className="grid h-full grid-cols-11">
+      <div className="md:border-4 md:p-4 w-full mb-4 rounded-md flex items-center relative max-[550px]:text-xl  max-[400px]:h-48">
+        <div className="grid h-full grid-cols-7">
           <div className="flex border rounded-lg shadow-md h-full items-center">
             <div className="flex flex-col items-center">
               <p>시간</p>
