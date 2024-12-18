@@ -122,7 +122,7 @@ export async function getTodayWeatherData(
         };
         temp2.push(temp);
       }
-      console.log(temp2);
+      
 
       setTodayWeather(
         temp2.filter(
