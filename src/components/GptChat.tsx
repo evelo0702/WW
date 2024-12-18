@@ -8,7 +8,7 @@ const GptChat: React.FC<Props> = ({ summary, setComment }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async () => {
-    const url = "https://api.openai.com/v1/chat/completions"; 
+    const url = "https://api.openai.com/v1/chat/completions";
     const requestOptions = {
       method: "POST",
       headers: {
@@ -17,7 +17,7 @@ const GptChat: React.FC<Props> = ({ summary, setComment }) => {
       },
       body: JSON.stringify({
         model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: summary }], 
+        messages: [{ role: "user", content: summary }],
         max_tokens: 500,
         temperature: 0.7,
       }),
@@ -27,23 +27,21 @@ const GptChat: React.FC<Props> = ({ summary, setComment }) => {
       const response = await fetch(url, requestOptions);
 
       if (!response.ok) {
-
         const errorData = await response.json();
         setError(`Error: ${errorData.error.message}`);
-        setComment(""); 
+        setComment("");
         return;
       }
 
       const data = await response.json();
-      setComment(data.choices[0].message.content.trim()); 
+      setComment(data.choices[0].message.content.trim());
     } catch (err) {
       setError("Request failed. Please try again.");
-      setComment(""); 
+      setComment("");
     }
   };
   useEffect(() => {
     if (summary) {
-      console.log("load gpt");
       handleSubmit();
     }
   }, [summary]);

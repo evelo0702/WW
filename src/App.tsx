@@ -119,9 +119,9 @@ function App() {
     3. 중복없이 상의만 설명없이 ${gender}을 기준으로 추천하는 옷 리스트외엔 아무것도 적지말고 보여줘 예를들어 상의:??이렇게 적지마 그리고 - 이표시도 적지마
     4. 중복없이 하의만 설명없이 ${gender}을 기준으로 추천하는 옷 리스트외엔 아무것도 적지말고 보여줘
     
-3,4번은 
-3. ? , ? , ? ,? (중복없이 상의만 적어줘)
-4. ? , ? ,? ,? (중복없이 하의만적어줘)
+아래와같이 3번은 중복없이 상의만 적어주고 4번은 중복없이 하의만 적어줘 
+3. ? , ? , ? ,? 
+4. ? , ? ,? ,? 
 이런식으로 적어주고 그리고 3,4에서 쓸데없는 기호나 상의: 이런거 절대 적지말고 영어로도 적지말고 중복되지않는 최소 3개씩은 추천해주고 위에 1,2,3,4번 모두 꼭 적어줘
     `;
     setSummary(total);
@@ -140,7 +140,7 @@ function App() {
             className="flex md:flex-row flex-col px-10 md:h-95vh text-2xl max-w-screen-xl mx-auto
       max-[380px]:text-lg"
           >
-            <div className="h-5/6">
+            <div className="h-5/6 w-full md:w-2/3 md:me-4">
               {location.regionName && (
                 <ShowWeather
                   regionCode={regionCode}
@@ -152,7 +152,7 @@ function App() {
               )}
             </div>
 
-            <div className="md:h-full max-w-screen-xl min-w-60">
+            <div className="md:h-5/6 w-full md:w-1/3">
               <RecWear
                 summary={summary}
                 setGender={setGender}
@@ -176,8 +176,7 @@ function App() {
             />
           </div>
 
-          <Loader />
-          <p className="ms-4 text-3xl">API DATA IS LOADING</p>
+          <Loader text="API DATA IS LOADING" />
         </div>
       )}
     </div>

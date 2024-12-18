@@ -66,12 +66,12 @@ const ShowWeather: React.FC<Props> = ({
           </div>
         </div>
 
-        <div className="pt-4 flex flex-col md:w-1/2 w-1/3 h-full items-center justify-center overflow-hidden">
+        <div className="pt-4 flex flex-col md:w-1/2 w-1/3 h-full items-center justify-center overflow-hidden ">
           {TodayWeather.length > 1 && curWx && (
-            <div className="md:w-1/2 w-3/4 overflow-hidden rounded-xl">
+            <div className="md:w-1/2 w-3/4 h-4/6 max-[760px]:h-1/2">
               <img
                 src={`/${curWx[0].ICON}.webp`}
-                className="w-full h-auto object-cover"
+                className="w-full h-full rounded-xl"
                 alt=""
               />
             </div>
@@ -89,31 +89,41 @@ const ShowWeather: React.FC<Props> = ({
         </div>
       </div>
 
-      <div className="border-4 rounded-md flex m-2 items-center max-[480px]:text-sm max-[480px]:h-48">
-        <div className="grid h-full p-3 grid-cols-10 gap-2">
+      <div className="border-4 rounded-md flex m-2 items-center relative max-[550px]:text-sm max-[380px]:text-xs max-[480px]:h-48">
+        <div className="grid h-full p-3 grid-cols-11 ">
+          <div className="flex border rounded-lg shadow-md h-full">
+            <div className="flex flex-col items-center">
+              <p>시간</p>
+              <img
+                src={`/Clear.webp`}
+                className="rounded-xl  md:h-1/2 p-1"
+                alt=""
+              />
+              <div className="flex my-2">
+                <p>온도</p>
+              </div>
+              <div className="my-2">강수</div>
+              <div className="flex my-2">습도</div>
+            </div>
+          </div>
           {TodayWeather.map((item) => (
             <div key={item.ID}>
               <TodayShow item={item} />
             </div>
           ))}
         </div>
-        <div className="text-sm flex flex-col w-20 h-full justify-end">
-          <p className="border-b-2">온도</p>
-          <p className="border-b-2">강수확률</p>
-          <p className="border-b-2">습도</p>
-        </div>
       </div>
 
       <div
         className="
-        grid grid-cols-1 md:h-1/2 h-1/3 p-3
+        grid grid-cols-1 md:h-1/2 h-1/3 
         sm:grid-cols-2  max-[640px]:grid-cols-7 
       "
       >
         {WeekendWeather.map((item, index) => (
           <div
             key={item.day}
-            className={` ${
+            className={`  ${
               index === WeekendWeather.length - 1
                 ? "sm:col-span-2"
                 : "col-span-1"

@@ -6,7 +6,7 @@ const TodayShow: React.FC<Props> = ({ item }) => {
   let Time = item.TIME.slice(0, -2);
 
   return (
-    <div className="flex border rounded-lg shadow-md">
+    <div className="flex border rounded-lg shadow-md h-full">
       <div className="flex flex-col items-center">
         <p>{Time}시</p>
         <img
@@ -24,7 +24,7 @@ const TodayShow: React.FC<Props> = ({ item }) => {
           )}
         </div>
         <div className="my-2">{item.POP}%</div>
-        <div className="flex my-2">{item.REH}</div>
+        <div className="flex my-2">{item.REH}%</div>
       </div>
     </div>
   );

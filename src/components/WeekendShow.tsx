@@ -17,14 +17,14 @@ const WeekendShow: React.FC<Props> = ({ WeekendWeather }) => {
   }, [WeekendWeather]);
 
   return (
-    <div className="max-[640px]:text-sm border-2 rounded-md ">
+    <div className="max-[640px]:text-sm border-2 rounded-md h-full flex-col items-center justify-center">
       <div className="flex justify-center max-[640px]:flex-col max-[640px]:items-center">
         {WeekendWeather.day}
-        <div className="px-4 max-[640px]:px-0 text-center">
+        <div className="px-4 max-[640px]:px-0 text-center max-[400px]:text-xs">
           {WeekendWeather.taMin}℃ / {WeekendWeather.taMax}℃
         </div>
       </div>
-      <div className="flex  h-full items-center justify-center max-[640px]:flex-col ">
+      <div className="flex items-center justify-center max-[640px]:flex-col ">
         <div className="flex  items-center mx-2 justify-center max-[640px]:flex-col">
           <p>오전</p>
 
