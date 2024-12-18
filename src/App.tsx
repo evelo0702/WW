@@ -152,7 +152,7 @@ function App() {
               )}
             </div>
 
-            <div className="md:h-5/6 w-full md:w-1/3">
+            <div className="md:h-1/6 w-full md:w-1/3">
               <RecWear
                 summary={summary}
                 setGender={setGender}
