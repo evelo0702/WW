@@ -25,19 +25,19 @@ const WeekendShow: React.FC<Props> = ({ WeekendWeather }) => {
         </div>
       </div>
       <div className="flex items-center justify-center max-[640px]:flex-col ">
-        <div className="flex  items-center  justify-center max-[640px]:flex-col">
+        <div className="flex  items-center md:mx-2 justify-center max-[640px]:flex-col">
           오전<p>{WeekendWeather.rnStAm}%</p>
           <img
             src={`/${icon.amIcon}.webp`}
-            className="rounded-xl p-1 object-contain w-1/3 max-[640px]:w-full"
+            className="rounded-xl p-1 md:object-contain w-1/3 max-[640px]:w-full"
             alt=""
           />
         </div>
-        <div className="flex items-center justify-center max-[640px]:flex-col">
+        <div className="flex items-center mx-2 justify-center max-[640px]:flex-col">
           오후<p>{WeekendWeather.rnStPm}%</p>
           <img
             src={`/${icon.pmIcon}.webp`}
-            className="rounded-xl p-1 max-[640px]:w-full"
+            className="rounded-xl p-1 md:object-contain w-1/3 max-[640px]:w-full"
             alt=""
           />
         </div>
