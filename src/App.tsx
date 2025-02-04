@@ -85,6 +85,7 @@ function App() {
 
   useEffect(() => {
     if (todayWeather) {
+      console.log("hi");
       getWeekendData();
     }
   }, [todayWeather]);
@@ -158,11 +159,11 @@ function App() {
                 setGender={setGender}
                 gender={gender}
               />
+              <div className="flex justify-end px-10 items-center text-xl">
+                <p className="me-10">Made by EVELO</p>
+                <p className="text-sm">Weather-Icon by lexamer </p>
+              </div>
             </div>
-          </div>
-          <div className="flex justify-end px-10 items-center text-xl">
-            <p className="me-10">Made by EVELO</p>
-            <p className="text-sm">Weather-Icon by lexamer </p>
           </div>
         </div>
       ) : (

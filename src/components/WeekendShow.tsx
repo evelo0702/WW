@@ -13,6 +13,7 @@ const WeekendShow: React.FC<Props> = ({ WeekendWeather }) => {
   const [icon, setIcon] = useState({} as Icon);
   useEffect(() => {
     let temp = getWeekendWeatherIcon(WeekendWeather);
+
     setIcon(temp);
   }, [WeekendWeather]);
 

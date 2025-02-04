@@ -21,17 +21,21 @@ const ShowWeather: React.FC<Props> = ({
   let [curWx, setCurWx] = useState<todayWeather[]>();
   const getCurWxData = (TodayWeather: todayWeather[]) => {
     let time = new Date().getHours();
-
     let data = TodayWeather.filter((i) => {
-      if (time > 4) {
+      if (time > 6) {
         return (
           parseInt(i.TIME.slice(0, -2)) === time ||
           parseInt(i.TIME.slice(0, -2)) === time - 1
         );
       } else {
-        return i.TIME === "0400";
+        return i.TIME === "0600";
       }
     });
+
+    if (data.length === 0) {
+      console.warn("데이터가 없습니다. 가장 최근 데이터 사용.");
+      data = [TodayWeather[TodayWeather.length - 1]];
+    }
 
     setCurWx(data);
   };
@@ -42,8 +46,8 @@ const ShowWeather: React.FC<Props> = ({
     getCurWxData(TodayWeather);
   }, [TodayWeather]);
   return (
-    <div className="md:h-85vh w-full flex flex-col">
-      <div className="flex w-full md:h-1/4  m-2 h-1/4">
+    <div className="h-full w-full flex flex-col">
+      <div className="flex w-full  m-2 h-1/5 md:mb-4">
         <div className="w-1/2">
           <div className="h-2/3 flex ">
             <img
@@ -56,7 +60,7 @@ const ShowWeather: React.FC<Props> = ({
             />
           </div>
 
-          <div className="h-1/3 font-dongle text-center md:justify-center flex max-[460px]:text-xl ">
+          <div className="h-1/3 font-dongle text-center md:justify-center flex max-[460px]:text-xl">
             <div className="w-full flex flex-col">
               <div className="">
                 <SearchAddress setLocation={setLocation} />
@@ -79,13 +83,11 @@ const ShowWeather: React.FC<Props> = ({
           <div className="flex flex-col justify-around ">
             {curWx && <p className="text-center">{curWx[0].TMP}℃</p>}
             {TodayWeather.length > 1 && (
-              <p className="text-gray-500">
-                최저{TodayWeather[0].TMN}℃ / 최고{TodayWeather[0].TMX}℃
-              </p>
+              <div className="text-gray-500 md:flex">
+                <p className="md:me-4">최저: {TodayWeather[0].TMN}℃ </p>
+                <p>최고: {TodayWeather[0].TMX}℃</p>
+              </div>
             )}
-          </div>
-          <div>
-            오전{TodayWeather[0].TMP}℃ / 오후{TodayWeather[5].TMP}℃
           </div>
         </div>
       </div>
@@ -114,7 +116,7 @@ const ShowWeather: React.FC<Props> = ({
       <div
         className="
         grid grid-cols-1 md:h-1/2 h-1/3 
-        sm:grid-cols-2  max-[640px]:grid-cols-7 
+        sm:grid-cols-2  max-[640px]:grid-cols-7  
       "
       >
         {WeekendWeather.map((item, index) => (

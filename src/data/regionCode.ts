@@ -398,24 +398,20 @@ const locationsUseGetWeekend: Locations = {
 };
 
 export function getRegionCode(type: string, name: string) {
-
-
   let code = name.split(" ")[0].slice(0, -1);
   if (type === "weekendTemp") {
     for (const key in locationsUseGetWeekend) {
       if (key === code) {
-        return locationsUseGetWeekend[key]; 
+        return locationsUseGetWeekend[key];
       }
     }
-    return null; 
-  } 
-  else {
+    return "11B10101";
+  } else {
     for (const key in locations) {
       if (key === code) {
-        return locations[key]; 
+        return locations[key];
       }
     }
-    return null; 
+    return "11B00000";
   }
 }
-

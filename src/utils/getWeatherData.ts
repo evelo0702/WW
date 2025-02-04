@@ -122,7 +122,6 @@ export async function getTodayWeatherData(
         };
         temp2.push(temp);
       }
-      
 
       setTodayWeather(
         temp2.filter(
@@ -218,6 +217,7 @@ export async function getWeekendWeatherData(wkRegion: string) {
     const res = await axios.get(
       `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=10&dataType=JSON&regId=${wkRegion}&tmFc=${date}`
     );
+
     if (res.data.response.body) {
       return res.data.response.body.items.item[0];
     }
@@ -226,7 +226,7 @@ export async function getWeekendWeatherData(wkRegion: string) {
   }
 }
 
-export async function getWeekendTempData(wkRegion: string | null) {
+export async function getWeekendTempData(wkRegion: string) {
   try {
     const hours = new Date().getHours();
     const date =
@@ -236,6 +236,7 @@ export async function getWeekendTempData(wkRegion: string | null) {
     const res = await axios.get(
       `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidTa?serviceKey=${SECRET_KEY}&pageNo=1&numOfRows=10&dataType=JSON&regId=${wkRegion}&tmFc=${date}`
     );
+
     if (res.data.response.body) {
       let data = res.data.response.body.items.item[0];
       let temp = {
